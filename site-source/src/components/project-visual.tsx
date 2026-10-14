@@ -1,0 +1,9 @@
+import Image from 'next/image';
+import { ArrowRight, Braces, Database, FileJson } from 'lucide-react';
+import type { Project } from '@/content/portfolio';
+import { publicPath } from '@/lib/paths';
+export function ProjectVisual({ project, priority = false }: { project: Project; priority?: boolean }) {
+  if (project.visual === 'salon') return <div className="project-visual salon-visual"><div className="browser-chrome"><span /><span /><span /><small>hair by zoe / a little self-care starts here</small></div><Image src={publicPath(project.image!)} alt="Actual Hair by Zoe homepage with salon typography and real client hairstyle photography" width={1280} height={720} priority={priority} sizes="(max-width: 800px) 95vw, 55vw" /><span className="image-caption">ACTUAL SITE CAPTURE</span></div>;
+  if (project.visual === 'news') return <div className="project-visual news-visual"><div className="visual-label">DATA FLOW / SOURCE-BASED DIAGRAM</div><div className="news-source"><span>Guardian</span><span>MediaStack</span></div><div className="flow-line" /><div className="normalized"><FileJson size={20} /><span>One article shape</span><code>{'{ title, url, source }'}</code></div><div className="flow-line" /><div className="news-dest"><span>Browse</span><span>Cache</span><span>Save</span></div></div>;
+  return <div className="project-visual api-visual"><div className="visual-label">REQUEST LIFECYCLE / ARCHITECTURE</div><div className="api-flow"><span><Braces size={25} />Request</span><ArrowRight size={17} /><span><span className="middleware-symbol">ƒ</span>Middleware</span><ArrowRight size={17} /><span><Database size={25} />MongoDB</span></div><div className="api-code"><span>POST</span> /api/v1/users/login <span className="api-dot">●</span></div><p>Route → controller → model → response</p></div>;
+}

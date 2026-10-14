@@ -1,0 +1,35 @@
+{
+  "name": "milan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build --webpack",
+    "start": "node scripts/serve.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "tsx --test tests/*.test.ts",
+    "build:pages": "node scripts/build-pages.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "chess.js": "1.4.0",
+    "lucide-react": "latest",
+    "@fontsource/dm-sans": "latest",
+    "@fontsource/space-grotesk": "latest",
+    "@fontsource/ibm-plex-mono": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tailwindcss": "latest",
+    "@tailwindcss/postcss": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "16.4.0",
+    "tsx": "latest"
+  }
+}

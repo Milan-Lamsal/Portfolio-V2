@@ -1,0 +1,6 @@
+site-source/node_modules/
+site-source/.next/
+site-source/out/
+site-source/*.tsbuildinfo
+**/.env*
+!**/.env.example

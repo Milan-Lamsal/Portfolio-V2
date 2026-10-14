@@ -1,0 +1,12 @@
+import { spawnSync } from 'node:child_process';
+import { cpSync, existsSync, writeFileSync } from 'node:fs';
+import { dirname, resolve, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const source = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const repository = resolve(source, '..');
+if (!existsSync(join(repository, '.nojekyll')) || !source.endsWith('site-source')) throw new Error('Run this command inside the GitHub checkout’s site-source folder.');
+const build = spawnSync(process.execPath, [join(source, 'node_modules/next/dist/bin/next'), 'build', '--webpack'], { cwd: source, stdio: 'inherit', env: { ...process.env, NEXT_PUBLIC_BASE_PATH: '/Portfolio-V2', NEXT_PUBLIC_SITE_URL: 'https://milan-lamsal.github.io/Portfolio-V2' } });
+if (build.status !== 0) process.exit(build.status || 1);
+cpSync(join(source, 'out'), repository, { recursive: true });
+writeFileSync(join(repository, '.nojekyll'), '');
+console.log('Updated the repository’s published files. Review and commit these changes with site-source.');
