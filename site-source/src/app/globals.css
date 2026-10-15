@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './shadcn.css';
 
 :root{--bg:#121615;--surface:#1a201d;--surface-2:#202923;--text:#efeee9;--muted:#a0aaa3;--subtle:#7d8b82;--border:#303a33;--accent:#b4e9cb;--accent-strong:#78c89d;--on-accent:#14291e;--shadow:0 24px 90px #0005;--heading:'Space Grotesk',sans-serif;--body:'DM Sans',sans-serif;--mono:'IBM Plex Mono',monospace;color-scheme:dark}
 :root[data-theme=light]{--bg:#f3f2ea;--surface:#e9ebe2;--surface-2:#dde5d9;--text:#202d25;--muted:#58675d;--subtle:#66776b;--border:#c8d0c3;--accent:#286743;--accent-strong:#287346;--on-accent:#f4fff5;--shadow:0 24px 70px #25362720;color-scheme:light}

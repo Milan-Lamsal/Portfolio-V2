@@ -1,19 +1,19 @@
 1:"$Sreact.fragment"
 2:"static/chunks/500-fc3b64d9ff4a32a7.js"
-3:"static/chunks/70-fec2da673e79ec9a.js"
+3:"static/chunks/397-f85ae34ffe5a566b.js"
 4:"static/chunks/437-0f1b89a44a3b4165.js"
-5:"static/chunks/66-76846bf1667a3dcf.js"
-6:"static/chunks/app/page-aeeb1a82fe1ac542.js"
-7:I[3066,["500","$2","70","$3","437","$4","66","$5","974","$6"],"SiteShell"]
+5:"static/chunks/363-0918146430a70cde.js"
+6:"static/chunks/app/page-1554f17e60fe9f37.js"
+7:I[4363,["500","$2","397","$3","437","$4","363","$5","974","$6"],"SiteShell"]
 8:I[7121,[],""]
 9:I[4581,[],""]
-a:"static/chunks/508-74e9420152657030.js"
-b:"static/chunks/app/labs/page-16dad1d55c51fe80.js"
-c:I[8500,["500","$2","70","$3","66","$5","508","$a","403","$b"],""]
-10:I[209,["500","$2","70","$3","66","$5","508","$a","403","$b"],"default"]
-11:I[508,["500","$2","70","$3","66","$5","508","$a","403","$b"],"POSLab"]
-12:I[405,["500","$2","70","$3","66","$5","508","$a","403","$b"],"Terminal"]
-13:I[508,["500","$2","70","$3","66","$5","508","$a","403","$b"],"LookupLab"]
+a:"static/chunks/508-2128f5d0d180b4bb.js"
+b:"static/chunks/app/labs/page-92a5b9220ae28b86.js"
+c:I[8500,["500","$2","397","$3","363","$5","508","$a","403","$b"],""]
+10:I[209,["500","$2","397","$3","363","$5","508","$a","403","$b"],"default"]
+11:I[508,["500","$2","397","$3","363","$5","508","$a","403","$b"],"POSLab"]
+12:I[405,["500","$2","397","$3","363","$5","508","$a","403","$b"],"Terminal"]
+13:I[508,["500","$2","397","$3","363","$5","508","$a","403","$b"],"LookupLab"]
 14:I[484,[],"OutletBoundary"]
 15:"$Sreact.suspense"
 17:"ViewportBoundary"
@@ -21,11 +21,11 @@ c:I[8500,["500","$2","70","$3","66","$5","508","$a","403","$b"],""]
 1a:"MetadataBoundary"
 1b:I[484,[],"$1a"]
 1d:I[7123,[],"default",1]
-:HL["/Portfolio-V2/_next/static/css/5588dfbc3e0b24b2.css","style"]
+:HL["/Portfolio-V2/_next/static/css/6d7ff9ee561b85f8.css","style"]
 e:X
 f:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":[[["$","$Lc",null,{"className":"back-link","href":"/","children":[["$","$L10",null,{"ref":"$undefined","icon":{"name":"arrow-left","size":24,"node":[["path",{"d":"m12 19-7-7 7-7","key":"1l729n"}],["path",{"d":"M19 12H5","key":"x3x0zl"}]]},"className":"$undefined","size":15}],"Back to the portfolio"]}],["$","div",null,{"className":"page-heading","children":[["$","span",null,{"className":"eyebrow accent","children":"A SMALL CREATIVE ENGINEERING STUDIO"}],["$","h2",null,{"children":["Curiosity,",["$","br",null,{}],"made interactive",["$","span",null,{"className":"accent","children":"."}]]}],["$","p",null,{"children":"Real controls. Visible state. A closer look at the ideas behind the interface."}],["$","nav",null,{"className":"lab-jump","aria-label":"Lab navigation","children":[["$","a",null,{"href":"#pos","children":"01 / Operations"}],["$","a",null,{"href":"#terminal","children":"02 / Terminal"}],["$","a",null,{"href":"#lookup","children":"03 / Lookup"}]]}]]}],["$","section",null,{"id":"pos","className":"lab-section","children":[["$","span",null,{"className":"eyebrow accent","children":"EXPERIMENT 01 / SHARED STATE"}],["$","h2",null,{"children":["One inventory.",["$","br",null,{}],"Two perspectives."]}],["$","p",null,{"children":"Mark an item sold out at the counter. Try ordering it from the customer menu. Both views read the same state, and every order rechecks availability."}],["$","$L11",null,{}],["$","p",null,{"className":"small lab-context","children":"A new illustrative prototype built for this portfolio. It is not a commercial POS deployment or a claim about research findings. The original systems-analysis report was not supplied."}]]}],["$","section",null,{"id":"terminal","className":"lab-section","children":[["$","span",null,{"className":"eyebrow accent","children":"EXPERIMENT 02 / COMMANDS & CHESS"}],["$","h2",null,{"children":"A different way in."}],["$","p",null,{"children":["Explore the portfolio with a few commands. Try ",["$","code",null,{"children":"chess"}]," for a small puzzle in thinking one move ahead."]}],["$","div",null,{"className":"lab-panel terminal-inline","children":["$","$L12",null,{}]}]]}],["$","section",null,{"id":"lookup","className":"lab-section","children":[["$","span",null,{"className":"eyebrow accent","children":"EXPERIMENT 03 / DATA STRUCTURES"}],["$","h2",null,{"children":"Skip the haystack."}],["$","p",null,{"children":"Compare a record-by-record scan with a simplified index. Follow the path, count the comparisons, and see why structure matters."}],["$","$L13",null,{}]]}]],null,["$","$L14",null,{"children":["$","$15",null,{"name":"Next.MetadataOutlet","children":"$@16"}]}]]}],"p":false,"v":null}}]]
 d:[["children",{"s":"labs","h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$L8",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$e"},"c":"$Qf"}]]
-0:{"P":null,"c":["","labs",""],"q":"","i":false,"t":{"t":{"s":"","h":528,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/Portfolio-V2/_next/static/css/5588dfbc3e0b24b2.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","data-theme":"dark","data-scroll-behavior":"smooth","suppressHydrationWarning":true,"children":["$","body",null,{"children":["$","$L7",null,{"children":["$","$L8",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"not-found","children":[["$","span",null,{"className":"eyebrow accent","children":"404 / AN UNEXPECTED MOVE"}],["$","div",null,{"className":"not-found-knight","children":"♞"}],["$","h2",null,{"children":"This square is empty."}],["$","p",null,{"children":"The page may have moved. There’s still plenty to explore."}],["$","$Lc",null,{"className":"primary-button","href":"/","children":"Back to the board ↗"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]}]]}],"p":false,"v":null},"c":"$Qd"},"h":{"r":["$","$1","h",{"children":[null,["$","$L18",null,{"children":"$L19"}],["$","$L1b",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$15",null,{"name":"Next.Metadata","children":"$L1c"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$1d",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"UjPzlqKPMs4V_hpXHL_DT"}
+0:{"P":null,"c":["","labs",""],"q":"","i":false,"t":{"t":{"s":"","h":528,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/Portfolio-V2/_next/static/css/6d7ff9ee561b85f8.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","data-theme":"dark","data-scroll-behavior":"smooth","suppressHydrationWarning":true,"children":["$","body",null,{"suppressHydrationWarning":true,"children":["$","$L7",null,{"children":["$","$L8",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L9",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"not-found","children":[["$","span",null,{"className":"eyebrow accent","children":"404 / AN UNEXPECTED MOVE"}],["$","div",null,{"className":"not-found-knight","children":"♞"}],["$","h2",null,{"children":"This square is empty."}],["$","p",null,{"children":"The page may have moved. There’s still plenty to explore."}],["$","$Lc",null,{"className":"primary-button","href":"/","children":"Back to the board ↗"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]}]]}],"p":false,"v":null},"c":"$Qd"},"h":{"r":["$","$1","h",{"children":[null,["$","$L18",null,{"children":"$L19"}],["$","$L1b",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$15",null,{"name":"Next.Metadata","children":"$L1c"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$1d",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"6SMw_pd2ZAxfikAhRpU_C"}
 e:C
 19:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 1e:I[6869,[],"IconMark"]

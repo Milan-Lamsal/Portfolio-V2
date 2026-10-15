@@ -2,9 +2,13 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ArrowUpRight, Command, Mail, TerminalSquare, X, Copy, Check, Search, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, Command, Mail, TerminalSquare, Copy, Check, X, ChevronRight } from 'lucide-react';
 import { profile, projects } from '@/content/portfolio';
 import { Terminal } from './terminal';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
+import { Command as CommandMenu, CommandInput, CommandList, CommandItem, CommandEmpty } from '@/components/ui/command';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 
 type Overlay = 'commands' | 'terminal' | 'contact' | null;
 const UI = createContext<{ open: (overlay: Overlay, chess?: boolean) => void; recruiter: boolean }>({ open: () => {}, recruiter: false });
@@ -13,7 +17,7 @@ export function CopyButton({ text, label = 'Copy email' }: { text: string; label
   const [status, setStatus] = useState('');
   async function copy() { try { await navigator.clipboard.writeText(text); setStatus('Copied'); } catch { setStatus('Copy unavailable — select the text'); } }
   useEffect(() => { if (!status) return; const t = setTimeout(() => setStatus(''), 3000); return () => clearTimeout(t); }, [status]);
-  return <button className="text-button" onClick={copy}>{status === 'Copied' ? <Check size={15} /> : <Copy size={15} />}<span aria-live="polite">{status || label}</span></button>;
+  return <Button variant="ghost" className="text-button" onClick={copy}>{status === 'Copied' ? <Check size={15} /> : <Copy size={15} />}<span aria-live="polite">{status || label}</span></Button>;
 }
 export function SiteShell({ children }: { children: ReactNode }) {
   const recruiter = false;
@@ -22,10 +26,16 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [time, setTime] = useState('New Jersey');
   const [active, setActive] = useState('work');
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState(0);
   const [topic, setTopic] = useState('Internship opportunity');
-  const dialog = useRef<HTMLDialogElement>(null);
+  const dialog = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (!overlay) return;
+    const frame = requestAnimationFrame(() => {
+      (dialog.current?.querySelector<HTMLElement>('input,select') || dialog.current?.querySelector<HTMLElement>('button'))?.focus();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [overlay]);
   const router = useRouter();
   const pathname = usePathname();
   const nav = [{ id: 'work', label: 'Selected work' }, { id: 'play', label: 'Labs' }, { id: 'about', label: 'About & education' }, { id: 'contact', label: 'Contact' }];
@@ -34,12 +44,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
     function tick() { setTime(new Intl.DateTimeFormat('en-US', { timeZone: profile.timezone, hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date())); }
     tick(); const timer = setInterval(tick, 30000); return () => clearInterval(timer);
   }, []);
-  function open(value: Overlay, showChess = false) { previousFocus.current = document.activeElement as HTMLElement; setChess(showChess); setQuery(''); setSelected(0); setOverlay(value); }
-  useEffect(() => {
-    const d = dialog.current;
-    if (overlay && d) { if (!d.open) d.showModal(); d.querySelector<HTMLInputElement | HTMLSelectElement>('input,select')?.focus(); }
-    if (!overlay && d?.open) { d.close(); previousFocus.current?.focus(); }
-  }, [overlay]);
+  function open(value: Overlay, showChess = false) { previousFocus.current = document.activeElement as HTMLElement; setChess(showChess); setQuery(''); setOverlay(value); }
   useEffect(() => {
     const keyboard = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement;
@@ -56,7 +61,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, [pathname, recruiter]);
   const go = (href: string) => { setOverlay(null); router.push(href === '/#play' && recruiter ? '/labs' : href); };
   const commands = [
-    ...nav.map((n, i) => ({ label: n.label, detail: `0${i + 1} / Navigate`, run: () => go('/#' + n.id) })),
+    ...nav.map((n, i) => ({ label: n.label, detail: `0${i + 1} / Navigate`, run: () => go(i === 1 ? '/labs' : '/#' + n.id) })),
     ...projects.map(p => ({ label: p.name, detail: 'Project / Case study', run: () => go('/projects/' + p.slug) })),
     { label: 'Open interactive labs', detail: 'Explore / Labs', run: () => go('/labs') },
     { label: 'Open developer terminal', detail: 'Experiment', run: () => setOverlay('terminal') },
@@ -64,10 +69,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
     { label: 'Write to Milan', detail: 'Contact', run: () => setOverlay('contact') },
     ...[{ label: 'GitHub', href: profile.github }, { label: 'LinkedIn', href: profile.linkedin }, ...(profile.resume ? [{ label: 'Download résumé', href: profile.resume }] : [])].map(s => ({ label: s.label, detail: 'Open link', run: () => { setOverlay(null); window.location.assign(s.href); } })),
   ].filter(c => c.label.toLowerCase().includes(query.toLowerCase()));
-  useEffect(() => { document.getElementById(`command-${selected}`)?.scrollIntoView({ block: 'nearest' }); }, [selected]);
-  return <UI.Provider value={{ open, recruiter }}>
+  return <UI.Provider value={{ open, recruiter }}><TooltipProvider delayDuration={400}>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="topbar"><Link href="/" className="monogram" aria-label="Milan Lamsal home">ML</Link><span className="topbar-note">PORTFOLIO</span><button className="command-trigger" onClick={() => open('commands')}><Command size={16} /> Search <kbd>Ctrl K</kbd></button></header>
+    <header className="topbar"><Link href="/" className="monogram" aria-label="Milan Lamsal home">ML</Link><span className="topbar-note">PORTFOLIO</span><Tooltip><TooltipTrigger asChild><Button variant="ghost" className="command-trigger" onClick={() => open('commands')}><Command size={16} /> Search <kbd>Ctrl K</kbd></Button></TooltipTrigger><TooltipContent className="editorial-tooltip" side="bottom" sideOffset={8}>Search pages and actions · Ctrl+K / Cmd+K</TooltipContent></Tooltip></header>
     <div className={`site-grid ${pathname !== '/' ? 'inner-page' : ''}`}>
       <aside className="intro">
         <div className="intro-label"><span className="status-dot"/> New Jersey, US</div>
@@ -80,14 +84,23 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </aside>
       <main id="main" tabIndex={-1}>{children}<footer><span>Milan Lamsal · Selected projects & experiments</span><Link href="/">Milan Lamsal <span className="accent">↗</span></Link></footer></main>
     </div>
-    <dialog ref={dialog} className={`overlay ${overlay === 'terminal' ? 'terminal-dialog' : ''}`} onCancel={() => setOverlay(null)} onClick={e => { if (e.target === e.currentTarget) setOverlay(null); }} aria-labelledby="dialog-title"><div className="dialog-top"><span id="dialog-title" className="eyebrow">{overlay === 'commands' ? 'FIND YOUR WAY' : overlay === 'terminal' ? 'MILAN / DEVELOPER TERMINAL' : 'CONTACT'}</span><button className="icon-button" onClick={() => setOverlay(null)} aria-label="Close dialog"><X size={20} /></button></div>
-      {overlay === 'commands' && <><div className="command-search"><Search size={20} /><input autoFocus value={query} placeholder="Where would you like to go?" aria-label="Search commands" role="combobox" aria-expanded="true" aria-controls="command-list" aria-activedescendant={commands.length ? `command-${Math.min(selected, commands.length - 1)}` : undefined} onChange={e => { setQuery(e.target.value); setSelected(0); }} onKeyDown={e => { if (e.key === 'ArrowDown') { e.preventDefault(); setSelected(s => (s + 1) % Math.max(commands.length, 1)); } if (e.key === 'ArrowUp') { e.preventDefault(); setSelected(s => (s - 1 + commands.length) % Math.max(commands.length, 1)); } if (e.key === 'Enter') { e.preventDefault(); commands[selected]?.run(); } }} /></div><div id="command-list" role="listbox" aria-label="Commands" className="command-list">{commands.map((c, i) => <button role="option" id={`command-${i}`} aria-selected={selected === i} key={c.label} onMouseEnter={() => setSelected(i)} onClick={c.run}><span>{c.label}<small>{c.detail}</small></span><ChevronRight size={17} /></button>)}{!commands.length && <p className="empty-state">No matching command. Try “labs”, “theme”, or “contact”.</p>}</div><div className="dialog-foot">↑ ↓ to navigate <span>↵ to open · Esc to close</span></div></>}
+    <Dialog open={overlay !== null} onOpenChange={isOpen => { if (!isOpen) setOverlay(null); }}>
+    <DialogContent ref={dialog} showCloseButton={false} className={`overlay editorial-dialog ${overlay === 'terminal' ? 'terminal-dialog' : ''}`}
+      onOpenAutoFocus={event => { event.preventDefault(); (dialog.current?.querySelector<HTMLElement>('input,select') || dialog.current?.querySelector<HTMLElement>('button'))?.focus(); }}
+      onCloseAutoFocus={event => { event.preventDefault(); previousFocus.current?.focus(); }}>
+      <div className="dialog-top"><DialogTitle className="eyebrow">{overlay === 'commands' ? 'FIND YOUR WAY' : overlay === 'terminal' ? 'MILAN / DEVELOPER TERMINAL' : 'CONTACT'}</DialogTitle><DialogClose asChild><Button variant="ghost" size="icon" className="icon-button" aria-label="Close dialog"><X size={20}/></Button></DialogClose></div>
+      <DialogDescription className="sr-only">{overlay === 'commands' ? 'Search pages and actions. Use arrow keys to select a result and Enter to open it.' : overlay === 'terminal' ? 'Browser-local developer terminal and optional chess puzzle.' : 'Choose a topic to open a draft in your email app, or copy the email address.'}</DialogDescription>
+      {overlay === 'commands' && <CommandMenu className="editorial-command" loop shouldFilter={false}>
+        <CommandInput autoFocus aria-label="Search commands" value={query} onValueChange={setQuery} placeholder="Search projects, pages, or actions…"/>
+        <CommandList className="editorial-command-list"><CommandEmpty>No matching command. Try “labs”, “chess”, or “contact”.</CommandEmpty>{commands.map(c=><CommandItem key={c.label} value={c.label} onSelect={c.run}><span>{c.label}<small>{c.detail}</small></span><ChevronRight size={17}/></CommandItem>)}</CommandList>
+        <div className="dialog-foot">↑ ↓ to navigate <span>↵ to open · Esc to close</span></div>
+      </CommandMenu>}
       {overlay === 'terminal' && <Terminal startChess={chess} />}
       {overlay === 'contact' && <div className="contact-drawer"><h2>Contact Milan<span className="accent">.</span></h2><p>Have an internship opportunity, a project idea, or a question about my work? I’d like to hear it.</p><label htmlFor="message-topic">What’s on your mind?</label><select id="message-topic" value={topic} onChange={e => setTopic(e.target.value)}><option>Internship opportunity</option><option>Project collaboration</option><option>Freelance project</option><option>Just saying hello</option></select><a className="primary-button" href={`mailto:${profile.email}?subject=${encodeURIComponent(topic)}&body=${encodeURIComponent('Hi Milan,\n\n')}`}>Open email draft <ArrowUpRight size={16} /></a><p className="small">Opens your email app. Nothing is sent automatically.</p><a className="contact-email" href={'mailto:' + profile.email}>{profile.email}</a><CopyButton text={profile.email} /></div>}
-    </dialog>
-  </UI.Provider>;
+    </DialogContent></Dialog>
+  </TooltipProvider></UI.Provider>;
 }
-export function ContactButton() { const { open } = useUI(); return <button className="primary-button" onClick={() => open('contact')}>Start a conversation <ArrowUpRight size={17} /></button>; }
-export function TerminalButton() { const { open } = useUI(); return <button className="text-button" onClick={() => open('terminal')}><TerminalSquare size={17} /> Open terminal <ArrowUpRight size={15} /></button>; }
+export function ContactButton() { const { open } = useUI(); return <Button className="primary-button" onClick={() => open('contact')}>Start a conversation <ArrowUpRight size={17} /></Button>; }
+export function TerminalButton() { const { open } = useUI(); return <Button variant="ghost" className="text-button" onClick={() => open('terminal')}><TerminalSquare size={17} /> Open terminal <ArrowUpRight size={15} /></Button>; }
 
 

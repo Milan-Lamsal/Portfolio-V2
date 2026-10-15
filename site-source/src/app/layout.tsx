@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' }, icons: { icon: publicPath('/icon.svg') },
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en" data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning><body><SiteShell>{children}</SiteShell></body></html>;
+  return <html lang="en" data-theme="dark" data-scroll-behavior="smooth" suppressHydrationWarning><body suppressHydrationWarning><SiteShell>{children}</SiteShell></body></html>;
 }
+
 
