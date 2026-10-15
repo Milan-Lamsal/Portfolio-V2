@@ -1,0 +1,9 @@
+[build]
+  base = "site-source"
+  command = 'NEXT_PUBLIC_SITE_URL="$URL" npm run build'
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "24"
+  NEXT_PUBLIC_BASE_PATH = ""
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
